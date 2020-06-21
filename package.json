@@ -1,0 +1,16 @@
+{
+  "name": "CoinLecionador",
+  "version": "1.0.0",
+  "description": "Sistema para controle de coleções numismátas",
+  "main": "index.js",
+  "author": "Matheus Dias Vieira <matheuspvh13@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "sequelize": "^5.21.13",
+    "sqlite3": "^4.2.0"
+  }
+}
