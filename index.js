@@ -4,6 +4,7 @@ const handlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const Handlebars = require('handlebars')
 const Currency = require('./src/models/Currency')
+const { Op } = require("sequelize");
 const json = require("body-parser/lib/types/json")
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 //config nossa template engine
@@ -18,15 +19,23 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/', async (req, res) => {
-    const objMoeda = await Currency.findAll()
 
+    const search = req.query.search
+    if (search) {
+        const objMoeda = await Currency.findAll({
+            where: {
+                currency_description: {
+                    [Op.like]: `%${search}%`
+                }
+            }
+        }
+        )
+        return res.render('index', { moedas: objMoeda })
+    }
+    const objMoeda = await Currency.findAll()
     return res.render('index', { moedas: objMoeda })
 })
-app.get('/api', async (req, res) => {
-    const objMoeda = await Currency.findAll()
 
-    return res.send(objMoeda)
-})
 
 app.post('/salvar_moeda', async (req, res) => {
     const { descricao, conservacao, cunhagem, pais } = req.body

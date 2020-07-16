@@ -11,7 +11,6 @@ const Currency = bd.sequelize.define('Currency', {
     {
         // don't add the timestamp attributes (updatedAt, createdAt)
         timestamps: false,
-        // your other configuration here
     })
 
 module.exports = Currency
